@@ -1,0 +1,39 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.192.0/containers/typescript-node
+{
+	"name": "Vue with essential extensions",
+	"build": {
+		// Update 'VARIANT' to pick a Node version: 12, 14, 16
+		"args": {
+			"VARIANT": "16"
+		},
+		"dockerfile": "Dockerfile",
+		"context": ".."
+	},
+
+	// Set *default* container specific settings.json values on container create.
+	"settings": {},
+
+
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		"dbaeumer.vscode-eslint",
+		"octref.vetur",
+		"ms-ceintl.vscode-language-pack-ko",
+		"christian-kohler.npm-intellisense",
+		"visualstudioexptteam.vscodeintellicode",
+		"bierner.github-markdown-preview"
+	],
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "yarn install",
+
+	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+	"remoteUser": "node",
+	"forwardPorts": [
+		8080
+	]
+}
