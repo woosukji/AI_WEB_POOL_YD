@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" light>
+    <v-app-bar app color="primary" dark>
       <span>{{ name }}</span>
     </v-app-bar>
 
