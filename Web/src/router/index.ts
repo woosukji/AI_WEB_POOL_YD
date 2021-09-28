@@ -5,7 +5,7 @@ import RegisterPage from "@/pages/account/RegisterPage.vue";
 import AccountMyPage from "@/pages/account/AccountMyPage.vue";
 import ArticleViewPage from "@/pages/article/ArticleViewPage.vue";
 import MainFeedPage from "@/pages/feed/MainFeedPage.vue";
-import SearchPage from "@/pages/feed/SearchPage.vue";
+import DiscoverPage from "@/pages/feed/DiscoverPage.vue";
 import PoolPage from "@/pages/pool/PoolPage.vue";
 import PoolFeedPage from "@/pages/pool/PoolFeedPage.vue";
 
@@ -25,9 +25,9 @@ const routes: Array<RouteConfig> = [
     component: MainFeedPage,
   },
   {
-    path: "/search",
-    name: "Search page",
-    component: SearchPage,
+    path: "/discover",
+    name: "Discover page",
+    component: DiscoverPage,
   },
 
   /* Account related routes */
