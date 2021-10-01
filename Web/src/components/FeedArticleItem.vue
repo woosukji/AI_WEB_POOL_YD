@@ -3,43 +3,46 @@
     <!-- 타이틀 영역 -->
     <v-img v-if="articleHasMainImage"
            :src="itemData.articleMainImageUrl"
+           dark
            aspect-ratio="2.5"
-           class="pa-2 white--text align-end">
+           class="pa-3 align-end">
       <div class="feed-image-darken-overlay"></div>
 
-      <v-layout class="pl-2" row align-center>
+      <v-layout class="ml-0" row align-center>
         <img :src="itemData.authorProfileImageUrl"
               aspect-ratio="1"
               style="width: 64px; border-radius: 100%;" />
 
         <v-layout column justify-start>
           <v-card-title>{{ itemData.articleTitle }}</v-card-title>
-          <v-card-subtitle>{{ itemData.authorName }}</v-card-subtitle>
+          <v-card-subtitle>By {{ itemData.authorName }}</v-card-subtitle>
         </v-layout>
       </v-layout>
     </v-img>
-    <v-layout v-else row align-center>
+    <v-layout v-else class="ml-3" row align-center>
       <img :src="itemData.authorProfileImageUrl"
             style="width: 64px; border-radius: 100%;" />
 
       <v-layout column justify-start>
         <v-card-title>{{ itemData.articleTitle }}</v-card-title>
-        <v-card-subtitle>{{ itemData.authorName }}</v-card-subtitle>
+        <v-card-subtitle>By {{ itemData.authorName }}</v-card-subtitle>
       </v-layout>
     </v-layout>
     <!-- -->
 
     <!-- 콘텐츠(텍스트) 영역 -->
-    <v-card-text>{{ itemData.articleContent }}</v-card-text>
+    <v-card-text class="feed-item-content" v-html="itemData.articleContent"></v-card-text>
     <!-- -->
 
     <!-- 카드 하단 영역 -->
-    <v-layout class="pa-2" row justify-space-around>
-      <span class="mx-2"><v-icon>mdi-message-reply-text</v-icon> {{ itemData.commentCount }}</span>
-      <span class="mx-2"><v-icon>mdi-heart</v-icon> {{ itemData.likesCount }}</span>
-      <v-spacer />
-      <span class="mx-2"><v-icon>mdi-clock-outline</v-icon> {{ uploadDateAgo }}</span>
-    </v-layout>
+    <v-card-actions>
+      <v-layout class="pa-4" row justify-space-around>
+        <span class="mx-2"><v-icon>mdi-reply</v-icon> {{ itemData.commentCount }}</span>
+        <span class="mx-2"><v-icon>mdi-heart</v-icon> {{ itemData.likesCount }}</span>
+        <v-spacer />
+        <span class="mx-2 text--disabled"><v-icon>mdi-clock-outline</v-icon> {{ uploadDateAgo }}</span>
+      </v-layout>
+    </v-card-actions>
     <!-- -->
   </v-card>
 </template>
@@ -75,7 +78,14 @@ export default class FeedArticleItem extends Vue {
   height: 100%;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.33);
   z-index: -1;
+}
+
+.feed-item-content {
+  max-height: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
 }
 </style>
