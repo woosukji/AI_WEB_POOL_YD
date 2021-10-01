@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires, import/no-extraneous-dependencies
 const execa = require("execa");
 
 (async () => {
@@ -13,7 +14,7 @@ const execa = require("execa");
     await execa("git", ["checkout", "-f", "master"]);
     await execa("git", ["branch", "-D", "gh-pages"]);
     console.log("Successfully deployed");
-  } catch(e) {
+  } catch (e) {
     console.log(e.message);
     process.exit(1);
   }
