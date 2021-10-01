@@ -20,7 +20,7 @@ jobs:
       - name: Clean-install dependencies using Yarn
         run: |
           rm -rf node_modules
-          yarn install --frozne-lockfile
+          yarn install --frozen-lockfile
         working-directory: Web
 
       - name: Run script
