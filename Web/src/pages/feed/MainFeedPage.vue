@@ -31,6 +31,7 @@ export default class MainFeedPage extends Vue {
         articleMainImageUrl: "https://picsum.photos/seed/one2/600/200",
         commentCount: Math.floor(Math.random() * 50),
         likesCount: Math.floor(Math.random() * 200),
+        likedByAccount: false,
       },
       {
         index: 2,
@@ -41,6 +42,7 @@ export default class MainFeedPage extends Vue {
         articleContent: "메인 이미지가 없는 피드 아이템!",
         commentCount: Math.floor(Math.random() * 50),
         likesCount: Math.floor(Math.random() * 200),
+        likedByAccount: true,
       },
       {
         index: 3,
@@ -51,6 +53,7 @@ export default class MainFeedPage extends Vue {
         articleContent: "이것도 메인 이미지가 없어요",
         commentCount: Math.floor(Math.random() * 50),
         likesCount: Math.floor(Math.random() * 200),
+        likedByAccount: false,
       },
       {
         index: 4,
@@ -62,6 +65,7 @@ export default class MainFeedPage extends Vue {
         articleMainImageUrl: "https://picsum.photos/seed/four2/600/200",
         commentCount: Math.floor(Math.random() * 50),
         likesCount: Math.floor(Math.random() * 200),
+        likedByAccount: false,
       },
     ];
   }

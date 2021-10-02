@@ -37,8 +37,8 @@
     <!-- 카드 하단 영역 -->
     <v-card-actions>
       <v-layout class="pa-4" row justify-space-around>
-        <span class="mx-2"><v-icon>mdi-reply</v-icon> {{ itemData.commentCount }}</span>
-        <span class="mx-2"><v-icon>mdi-heart</v-icon> {{ itemData.likesCount }}</span>
+        <v-btn class="pa-0" text :to="{ path: '/article/' + itemData.index }"><v-icon>mdi-message-reply-text</v-icon> {{ itemData.commentCount }}</v-btn>
+        <v-btn class="pa-0 mx-2" :color="itemData.likedByAccount ? 'pink' : ''"  text @click="onLikeButtonClick"><v-icon>mdi-heart</v-icon> {{ itemData.likesCount }}</v-btn>
         <v-spacer />
         <span class="mx-2 text--disabled"><v-icon>mdi-clock-outline</v-icon> {{ uploadDateAgo }}</span>
       </v-layout>
@@ -67,6 +67,29 @@ export default class FeedArticleItem extends Vue {
 
   get uploadDateAgo(): string {
     return format(this.itemData.uploadDate, "ko");
+  }
+
+  onLikeButtonClick(): void {
+    new Promise<Record<string, any>>((resolve) => {
+      // server communication logic here
+
+      // 테스트용 가짜 처리
+      setTimeout(() => {
+        resolve({ // New like status
+          index: this.itemData.index,
+          likedByAccount: !this.itemData.likedByAccount,
+          likesCount: this.itemData.likesCount + (this.itemData.likedByAccount ? -1 : 1),
+        });
+      }, Math.random() * 500 + 50);
+    }).then((value) => {
+      if (value.index === this.itemData.index) {
+        this.itemData = {
+          ...this.itemData,
+          likedByAccount: value.likedByAccount,
+          likesCount: value.likesCount,
+        };
+      }
+    });
   }
 }
 </script>

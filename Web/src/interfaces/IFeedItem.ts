@@ -8,6 +8,7 @@ interface IFeedItem {
   articleMainImageUrl?: string,
   commentCount: number,
   likesCount: number,
+  likedByAccount: boolean,
 }
 
 export default IFeedItem;
