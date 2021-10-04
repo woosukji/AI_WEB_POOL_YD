@@ -57,6 +57,23 @@ import IFeedItem from "@/interfaces/IFeedItem";
 @Component
 export default class FeedArticleItem extends Vue {
   @Prop({ required: true }) itemData!: IFeedItem;
+  recomputeIntervalId = -1;
+  recomputeHack = false;
+
+  mounted(): void {
+    if (this.recomputeIntervalId === -1) {
+      this.recomputeIntervalId = setInterval(() => {
+        this.recomputeHack = !this.recomputeHack;
+      }, 60 * 1000);
+    }
+  }
+
+  unmounted(): void {
+    if (this.recomputeIntervalId !== -1) {
+      clearInterval(this.recomputeIntervalId);
+      this.recomputeIntervalId = -1;
+    }
+  }
 
   get articleHasMainImage(): boolean {
     if (this.itemData.articleMainImageUrl) {
@@ -66,6 +83,12 @@ export default class FeedArticleItem extends Vue {
   }
 
   get uploadDateAgo(): string {
+    // computed 속성을 강제로 업데이트하기 위한 편법입니다.
+    //   1분마다 업데이트(mounted 함수 참조)되는 변수를 참조하는 것만으로
+    //   computed 캐싱을 무시하고 재처리합니다.
+    // eslint-disable-next-line no-unused-expressions
+    this.recomputeHack;
+
     return format(this.itemData.uploadDate, "ko");
   }
 
