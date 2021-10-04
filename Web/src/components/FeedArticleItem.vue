@@ -11,6 +11,7 @@
       <v-layout class="ml-0" row align-center>
         <img :src="itemData.authorProfileImageUrl"
               aspect-ratio="1"
+              class="elevation-2"
               style="width: 64px; border-radius: 100%;" />
 
         <v-layout column justify-start>
@@ -21,6 +22,7 @@
     </v-img>
     <v-layout v-else class="ml-3" row align-center>
       <img :src="itemData.authorProfileImageUrl"
+            class="elevation-2"
             style="width: 64px; border-radius: 100%;" />
 
       <v-layout column justify-start>
