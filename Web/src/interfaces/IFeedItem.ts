@@ -1,4 +1,4 @@
-interface IFeedItem {
+export default interface IFeedItem {
   index: number,
   authorProfileImageUrl: string,
   authorName: string,
@@ -9,6 +9,4 @@ interface IFeedItem {
   commentCount: number,
   likesCount: number,
   likedByAccount: boolean,
-}
-
-export default IFeedItem;
+} // eslint-disable-line semi
