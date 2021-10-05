@@ -25,16 +25,22 @@ export interface IComment {
   content: string,
 }
 
-export interface IPost {
-  /* 글 정보 */
+export interface IPostDisplay {
+  /* 뷰(피드) 표시용을 겸한 최소 게시글 정보 */
   id: string,
   createdAt: Date,
-  updatedAt: Date,
   author: IUserDisplay,
   title: string,
-  content: string,
-  comments: Array<IComment>,
+  contentPreview: string,
+  previewMainImageUrl: string,
   commentsCount: number,
-  likes: Array<IUserDisplay>,
   likesCount: number,
+}
+
+export interface IPost extends IPostDisplay {
+  /* 게시글 정보 */
+  updatedAt: Date,
+  contentFull: string,
+  comments: Array<IComment>,
+  likes: Array<IUserDisplay>,
 }
