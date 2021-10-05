@@ -8,7 +8,11 @@
       <v-spacer />
 
       <!-- # 비로그인 사용자용 네비바 아이콘 -->
-      <v-menu offset-y v-if="!loginState.loggedIn">
+      <v-menu v-if="!loginState.loggedIn"
+              :close-on-content-click="false"
+              offset-y
+              min-width="250px"
+              transition="slide-y-transition">
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon v-on="on" v-bind="attrs">
             <v-icon>mdi-login</v-icon>
@@ -16,6 +20,29 @@
         </template>
 
         <v-list>
+          <v-list-item>
+            <div>
+              <v-list-item-title class="mt-3 text-h6">로그인</v-list-item-title>
+
+              <v-form v-model="loginFormValidated" class="mt-4" ref="loginForm">
+                <v-text-field v-model="loginFormId"
+                              :rules="loginFormIdRules"
+                              label="ID"
+                              clearable
+                              required />
+                <v-text-field v-model="loginFormPassword"
+                              :append-icon="loginFormPasswordShow ? 'mdi-eye' : 'mdi-eye-off'"
+                              :rules="[(value) => !!value || '비밀번호를 입력해주세요.']"
+                              :type="loginFormPasswordShow ? 'text' : 'password'"
+                              @click:append="loginFormPasswordShow = !loginFormPasswordShow"
+                              label="비밀번호"
+                              clearable
+                              required />
+                <v-btn :disabled="!loginFormValidated" class="my-2" type="submit" color="success">로그인</v-btn>
+              </v-form>
+            </div>
+          </v-list-item>
+
           <v-list-item @click="testLogin">
             <!-- TODO: 로그인 폼 메뉴 팝업 or 모달 다이얼로그 -->
             <span>(테스트용 로그인)</span>
@@ -25,7 +52,10 @@
       <!-- # -->
 
       <!-- # 로그인 사용자용 네비바 아이콘 -->
-      <v-menu v-if="loginState.loggedIn" offeset-y min-width="250px">
+      <v-menu v-else
+              offeset-y
+              min-width="250px"
+              transition="slide-y-transition">
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon v-on="on" v-bind="attrs">
             <v-icon>mdi-account</v-icon>
@@ -69,6 +99,28 @@ import { Watch } from "vue-property-decorator";
 
 @Component
 export default class App extends Vue {
+  /* 로그인 폼 멤버 */
+  loginFormValidated = false;
+  loginFormId = "";
+  loginFormIdRules: Array<(value: string) => boolean | string> = [
+    (value) => !!value || "ID를 입력해주세요.",
+    (value) => (value && /^[a-zA-Z.]+$/.test(value)) || "ID는 영문자 및 마침표(.)만 사용할 수 있습니다.",
+    (value) => (value && !/\.$/.test(value)) || "ID의 마지막 문자로 마침표(.)를 사용할 수 없습니다.",
+    (value) => {
+      const regExExec = /\.{2,}/.exec(value);
+
+      if (value && regExExec) {
+        if (regExExec.index > 0) {
+          return "마침표(.) 문자는 연속으로 입력할 수 없습니다.";
+        }
+      }
+
+      return true;
+    },
+  ];
+  loginFormPassword = "";
+  loginFormPasswordShow = false;
+
   /* 임시 로그인 상태 오브젝트 */
   loginState = {
     loggedIn: true,
