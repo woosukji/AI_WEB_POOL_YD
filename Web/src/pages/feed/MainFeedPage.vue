@@ -1,7 +1,7 @@
 <template>
   <div>
     <feed-article-item v-for="item in feedItems"
-      class="my-4"
+      class="my-3"
       :key="item.index"
       :itemData="item" />
   </div>
