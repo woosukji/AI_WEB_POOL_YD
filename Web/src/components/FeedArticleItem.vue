@@ -38,13 +38,14 @@
     <v-card-text>{{ itemData.articleContent }}</v-card-text>
     <!-- -->
 
-    <div>{{ itemData.uploadDate }}</div>
+    <div>{{ uploadDateAgo }}</div>
   </v-card>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
+import { format } from "timeago.js";
 import { Prop } from "vue-property-decorator";
 import IFeedItem from "@/interfaces/IFeedItem";
 
@@ -57,6 +58,10 @@ export default class FeedArticleItem extends Vue {
       return true;
     }
     return false;
+  }
+
+  get uploadDateAgo(): string {
+    return format(this.itemData.uploadDate, "ko");
   }
 }
 </script>
