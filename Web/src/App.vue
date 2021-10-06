@@ -7,6 +7,12 @@
 
       <v-spacer />
 
+      <v-tabs v-if="loginState.loggedIn" right optional icons-and-text>
+        <v-tab to="/feed">피드 <v-icon>mdi-card-text</v-icon></v-tab>
+        <v-tab to="/discover">탐색 <v-icon>mdi-compass</v-icon></v-tab>
+        <v-tab to="/pool">풀 <v-icon>mdi-approximately-equal-box</v-icon></v-tab>
+      </v-tabs>
+
       <!-- # 비로그인 사용자용 네비바 아이콘 -->
       <v-menu v-if="!loginState.loggedIn"
               :close-on-content-click="false"
@@ -170,8 +176,12 @@ export default class App extends Vue {
 </script>
 
 <style lang="scss">
-  .v-app-bar > .v-toolbar__content {
-    margin: auto;
-    max-width: 1000px;
-  }
+.v-app-bar > .v-toolbar__content {
+  margin: auto;
+  max-width: 1000px;
+}
+
+.v-tabs {
+  width: auto !important;
+}
 </style>
