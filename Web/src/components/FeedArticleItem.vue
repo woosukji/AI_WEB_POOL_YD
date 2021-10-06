@@ -1,46 +1,46 @@
 <template>
-  <v-card hover ripple :to="{ path: `/article/${itemData.index}` }" style="overflow: hidden">
+  <v-card hover ripple :to="{ path: `/article/${itemData.postInfo.id}` }" style="overflow: hidden">
     <!-- 타이틀 영역 -->
     <v-img v-if="articleHasMainImage"
-           :src="itemData.articleMainImageUrl"
+           :src="itemData.postInfo.previewMainImageUrl"
            dark
            aspect-ratio="2.5"
            class="pa-3 align-end">
       <div class="feed-image-darken-overlay"></div>
 
       <v-layout class="mt-0 ml-0" row align-center>
-        <img :src="itemData.authorProfileImageUrl"
+        <img :src="itemData.postInfo.author.profileImageUrl"
               aspect-ratio="1"
               class="elevation-2"
               style="width: 64px; border-radius: 100%;" />
 
         <v-layout column justify-start>
-          <v-card-title>{{ itemData.articleTitle }}</v-card-title>
-          <v-card-subtitle>By {{ itemData.authorName }}</v-card-subtitle>
+          <v-card-title>{{ itemData.postInfo.title }}</v-card-title>
+          <v-card-subtitle>By {{ itemData.postInfo.author.username }}</v-card-subtitle>
         </v-layout>
       </v-layout>
     </v-img>
     <v-layout v-else class="mt-0 ml-3" row align-center>
-      <img :src="itemData.authorProfileImageUrl"
+      <img :src="itemData.postInfo.author.profileImageUrl"
             class="elevation-2"
             style="width: 64px; border-radius: 100%;" />
 
       <v-layout column justify-start>
-        <v-card-title>{{ itemData.articleTitle }}</v-card-title>
-        <v-card-subtitle>By {{ itemData.authorName }}</v-card-subtitle>
+        <v-card-title>{{ itemData.postInfo.title }}</v-card-title>
+        <v-card-subtitle>By {{ itemData.postInfo.author.username }}</v-card-subtitle>
       </v-layout>
     </v-layout>
     <!-- -->
 
     <!-- 콘텐츠(텍스트) 영역 -->
-    <v-card-text class="feed-item-content" v-html="itemData.articleContent"></v-card-text>
+    <v-card-text class="feed-item-content" v-html="itemData.postInfo.contentPreview"></v-card-text>
     <!-- -->
 
     <!-- 카드 하단 영역 -->
     <v-card-actions>
       <v-layout class="pa-4" row justify-space-around>
-        <v-btn class="pa-0 px-1" text :to="{ path: `/article/${itemData.index}#comments` }"><v-icon class="mr-1">mdi-message-reply-text</v-icon> {{ itemData.commentCount }}</v-btn>
-        <v-btn class="pa-0 px-1 mx-2" text :color="itemData.likedByAccount ? 'pink' : ''" @click.stop.prevent="onLikeButtonClick"><v-icon class="mr-1">mdi-heart</v-icon> {{ itemData.likesCount }}</v-btn>
+        <v-btn class="pa-0 px-1" text :to="{ path: `/article/${itemData.postInfo.id}#comments` }"><v-icon class="mr-1">mdi-message-reply-text</v-icon> {{ itemData.postInfo.commentsCount }}</v-btn>
+        <v-btn class="pa-0 px-1 mx-2" text :color="itemData.likedByAccount ? 'pink' : ''" @click.stop.prevent="onLikeButtonClick"><v-icon class="mr-1">mdi-heart</v-icon> {{ itemData.postInfo.likesCount }}</v-btn>
         <v-spacer />
         <span class="mx-2 text--disabled"><v-icon>mdi-clock-outline</v-icon> {{ uploadDateAgo }}</span>
       </v-layout>
@@ -78,7 +78,7 @@ export default class FeedArticleItem extends Vue {
   }
 
   get articleHasMainImage(): boolean {
-    if (this.itemData.articleMainImageUrl) {
+    if (this.itemData.postInfo.previewMainImageUrl) {
       return true;
     }
     return false;
@@ -91,7 +91,7 @@ export default class FeedArticleItem extends Vue {
     // eslint-disable-next-line no-unused-expressions
     this.recomputeHack;
 
-    return format(this.itemData.uploadDate, "ko");
+    return format(this.itemData.postInfo.createdAt, "ko");
   }
 
   onLikeButtonClick(): void {
@@ -101,17 +101,19 @@ export default class FeedArticleItem extends Vue {
       // 테스트용 가짜 처리
       setTimeout(() => {
         resolve({ // New like status
-          index: this.itemData.index,
+          index: this.itemData.postInfo.id,
           likedByAccount: !this.itemData.likedByAccount,
-          likesCount: this.itemData.likesCount + (this.itemData.likedByAccount ? -1 : 1),
+          likesCount: this.itemData.postInfo.likesCount + (this.itemData.likedByAccount ? -1 : 1),
         });
       }, Math.random() * 500 + 50);
     }).then((value) => {
-      if (value.index === this.itemData.index) {
+      if (value.index === this.itemData.postInfo.id) {
         this.itemData = {
-          ...this.itemData,
+          postInfo: {
+            ...this.itemData.postInfo,
+            likesCount: value.likesCount,
+          },
           likedByAccount: value.likedByAccount,
-          likesCount: value.likesCount,
         };
       }
     });
