@@ -168,3 +168,10 @@ export default class App extends Vue {
   }
 }
 </script>
+
+<style lang="scss">
+  .v-app-bar > .v-toolbar__content {
+    margin: auto;
+    max-width: 1000px;
+  }
+</style>
