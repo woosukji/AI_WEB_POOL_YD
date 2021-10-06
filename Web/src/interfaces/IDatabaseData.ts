@@ -32,7 +32,7 @@ export interface IPostDisplay {
   author: IUserDisplay,
   title: string,
   contentPreview: string,
-  previewMainImageUrl: string,
+  previewMainImageUrl?: string,
   commentsCount: number,
   likesCount: number,
 }

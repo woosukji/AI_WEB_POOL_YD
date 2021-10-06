@@ -17,14 +17,15 @@ module.exports = {
     "lines-between-class-members": "off",
     "class-methods-use-this": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
+    "max-len": "off",
     quotes: ["error", "double"],
   },
   overrides: [
     {
-      "files": ["*.ts", "*.tsx"],
-      "rules": {
-        "@typescript-eslint/explicit-module-boundary-types": ["error"]
-      }
-    }
-  ]
+      files: ["*.ts", "*.tsx"],
+      rules: {
+        "@typescript-eslint/explicit-module-boundary-types": ["error"],
+      },
+    },
+  ],
 };
