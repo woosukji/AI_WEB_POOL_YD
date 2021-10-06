@@ -1,5 +1,5 @@
 <template>
-  <v-responsive class="mx-auto px-2 px-sm-6" max-width="1000px">
+  <v-responsive class="mx-auto px-2 px-sm-6" max-width="800px">
     <feed-article-item v-for="item in feedItems"
       class="my-3"
       :key="item.index"
