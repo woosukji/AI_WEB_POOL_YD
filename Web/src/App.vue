@@ -7,11 +7,9 @@
 
       <v-spacer />
 
-      <v-tabs v-if="loginState.loggedIn" right optional icons-and-text>
-        <v-tab to="/feed">피드 <v-icon>mdi-card-text</v-icon></v-tab>
-        <v-tab to="/discover">탐색 <v-icon>mdi-compass</v-icon></v-tab>
-        <v-tab to="/pool">풀 <v-icon>mdi-approximately-equal-box</v-icon></v-tab>
-      </v-tabs>
+      <app-tab-navigation v-if="loginState.loggedIn"
+                          tabsPosition="right"
+                          class="d-none d-sm-block" />
 
       <!-- # 비로그인 사용자용 네비바 아이콘 -->
       <v-menu v-if="!loginState.loggedIn"
@@ -95,6 +93,10 @@
         <router-view />
       </v-container>
     </v-main>
+
+    <v-bottom-navigation app class="d-sm-none">
+      <app-tab-navigation :tabGrow="true" />
+    </v-bottom-navigation>
   </v-app>
 </template>
 
@@ -102,8 +104,13 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { Watch } from "vue-property-decorator";
+import AppTabNavigation from "@/components/app/AppTabNavigation.vue";
 
-@Component
+@Component({
+  components: {
+    AppTabNavigation,
+  },
+})
 export default class App extends Vue {
   /* 로그인 폼 멤버 */
   loginFormValidated = false;
@@ -178,10 +185,14 @@ export default class App extends Vue {
 <style lang="scss">
 .v-app-bar > .v-toolbar__content {
   margin: auto;
-  max-width: 1000px;
+  max-width: 800px;
 }
 
-.v-tabs {
+.v-app-bar .v-tabs {
   width: auto !important;
+}
+
+.v-bottom-navigation {
+  height: 72px !important;
 }
 </style>
