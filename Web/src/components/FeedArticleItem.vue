@@ -1,5 +1,5 @@
 <template>
-  <v-card hover ripple :to="{ path: `/article/${itemData.index}` }">
+  <v-card hover ripple :to="{ path: `/article/${itemData.index}` }" style="overflow: hidden">
     <!-- 타이틀 영역 -->
     <v-img v-if="articleHasMainImage"
            :src="itemData.articleMainImageUrl"
@@ -39,8 +39,8 @@
     <!-- 카드 하단 영역 -->
     <v-card-actions>
       <v-layout class="pa-4" row justify-space-around>
-        <v-btn class="pa-0" text :to="{ path: `/article/${itemData.index}#comments` }"><v-icon>mdi-message-reply-text</v-icon> {{ itemData.commentCount }}</v-btn>
-        <v-btn class="pa-0 mx-2" text :color="itemData.likedByAccount ? 'pink' : ''" @click.stop.prevent="onLikeButtonClick"><v-icon>mdi-heart</v-icon> {{ itemData.likesCount }}</v-btn>
+        <v-btn class="pa-0" text :to="{ path: `/article/${itemData.index}#comments` }"><v-icon class="mr-1">mdi-message-reply-text</v-icon> {{ itemData.commentCount }}</v-btn>
+        <v-btn class="pa-0 mx-2" text :color="itemData.likedByAccount ? 'pink' : ''" @click.stop.prevent="onLikeButtonClick"><v-icon class="mr-1">mdi-heart</v-icon> {{ itemData.likesCount }}</v-btn>
         <v-spacer />
         <span class="mx-2 text--disabled"><v-icon>mdi-clock-outline</v-icon> {{ uploadDateAgo }}</span>
       </v-layout>
@@ -120,6 +120,13 @@ export default class FeedArticleItem extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.v-card__title,
+.v-card__subtitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .feed-image-darken-overlay {
   position: absolute;
   width: 100%;
