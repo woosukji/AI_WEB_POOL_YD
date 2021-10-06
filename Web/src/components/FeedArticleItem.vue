@@ -39,8 +39,8 @@
     <!-- 카드 하단 영역 -->
     <v-card-actions>
       <v-layout class="pa-4" row justify-space-around>
-        <v-btn class="pa-0" text :to="{ path: `/article/${itemData.index}#comments` }"><v-icon class="mr-1">mdi-message-reply-text</v-icon> {{ itemData.commentCount }}</v-btn>
-        <v-btn class="pa-0 mx-2" text :color="itemData.likedByAccount ? 'pink' : ''" @click.stop.prevent="onLikeButtonClick"><v-icon class="mr-1">mdi-heart</v-icon> {{ itemData.likesCount }}</v-btn>
+        <v-btn class="pa-0 px-1" text :to="{ path: `/article/${itemData.index}#comments` }"><v-icon class="mr-1">mdi-message-reply-text</v-icon> {{ itemData.commentCount }}</v-btn>
+        <v-btn class="pa-0 px-1 mx-2" text :color="itemData.likedByAccount ? 'pink' : ''" @click.stop.prevent="onLikeButtonClick"><v-icon class="mr-1">mdi-heart</v-icon> {{ itemData.likesCount }}</v-btn>
         <v-spacer />
         <span class="mx-2 text--disabled"><v-icon>mdi-clock-outline</v-icon> {{ uploadDateAgo }}</span>
       </v-layout>
