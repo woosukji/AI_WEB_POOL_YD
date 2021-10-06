@@ -49,7 +49,7 @@ import { Prop } from "vue-property-decorator";
 
 @Component
 export default class AppNonLoginAccountMenu extends Vue {
-  @Prop() loginCallback!: () => void;
+  @Prop({ required: true }) loginCallback!: () => void;
 
   /* 로그인 폼 멤버 */
   loginFormValidated = false;

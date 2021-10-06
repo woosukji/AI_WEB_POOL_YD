@@ -36,6 +36,6 @@ import { Prop } from "vue-property-decorator";
 
 @Component
 export default class AppNonLoginAccountMenu extends Vue {
-  @Prop() logoutCallback!: () => void;
+  @Prop({ required: true }) logoutCallback!: () => void;
 }
 </script>
