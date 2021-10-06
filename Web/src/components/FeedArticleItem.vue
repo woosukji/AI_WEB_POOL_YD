@@ -7,27 +7,22 @@
            class="pa-2 white--text align-end">
       <div class="feed-image-darken-overlay"></div>
 
-      <v-layout row
-                align-center>
+      <v-layout class="pl-2" row align-center>
         <img :src="itemData.authorProfileImageUrl"
               aspect-ratio="1"
               style="width: 64px; border-radius: 100%;" />
 
-        <v-layout column
-                  justify-start>
+        <v-layout column justify-start>
           <v-card-title>{{ itemData.articleTitle }}</v-card-title>
           <v-card-subtitle>{{ itemData.authorName }}</v-card-subtitle>
         </v-layout>
       </v-layout>
     </v-img>
-    <v-layout v-else
-              row
-              align-center>
+    <v-layout v-else row align-center>
       <img :src="itemData.authorProfileImageUrl"
             style="width: 64px; border-radius: 100%;" />
 
-      <v-layout column
-                justify-start>
+      <v-layout column justify-start>
         <v-card-title>{{ itemData.articleTitle }}</v-card-title>
         <v-card-subtitle>{{ itemData.authorName }}</v-card-subtitle>
       </v-layout>
@@ -38,7 +33,14 @@
     <v-card-text>{{ itemData.articleContent }}</v-card-text>
     <!-- -->
 
-    <div>{{ uploadDateAgo }}</div>
+    <!-- 카드 하단 영역 -->
+    <v-layout class="pa-2" row justify-space-around>
+      <span class="mx-2"><v-icon>mdi-message-reply-text</v-icon> {{ itemData.commentCount }}</span>
+      <span class="mx-2"><v-icon>mdi-heart</v-icon> {{ itemData.likesCount }}</span>
+      <v-spacer />
+      <span class="mx-2"><v-icon>mdi-clock-outline</v-icon> {{ uploadDateAgo }}</span>
+    </v-layout>
+    <!-- -->
   </v-card>
 </template>
 

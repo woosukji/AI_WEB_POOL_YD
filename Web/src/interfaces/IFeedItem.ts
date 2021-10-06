@@ -6,6 +6,8 @@ interface IFeedItem {
   articleTitle: string,
   articleContent: string,
   articleMainImageUrl?: string,
+  commentCount: number,
+  likesCount: number,
 }
 
 export default IFeedItem;
